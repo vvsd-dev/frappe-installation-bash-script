@@ -98,7 +98,7 @@ for package in $selected_packages; do
         "MySQL") echo "Securing MySQL installation..." && sudo mysql_secure_installation && echo "$MYSQL_CONFIG" | sudo tee -a /etc/mysql/my.cnf > /dev/null && sudo service mysql restart ;;
         "NVM_Node.js") echo "Installing NVM and Node.js..." && sudo apt install curl -y && curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash && source ~/.profile && nvm install 16.15.0 ;;
         "NPM_Yarn") echo "Installing npm and yarn..." && sudo apt-get install npm -y && sudo npm install -g yarn ;;
-        "Frappe_Bench") echo "Installing Frappe Bench..." && sudo pip3 install frappe-bench && cd "$BENCH_PATH" && bench init --frappe-branch version-14 --python python3.10 "$BENCH_FOLDER" ;;
+        "Frappe_Bench") echo "Installing Frappe Bench..." && sudo pip3 install frappe-bench && cd "$BENCH_PATH" && bench init --frappe-branch version-14 --python python3.10 "$BENCH_FOLDER" && sudo chmod -R o+rx /home/$ORIGINAL_USER ;;
         "Frappe_Production") echo "Setting up Frappe Production Mode..." && cd "$BENCH_PATH/$BENCH_FOLDER" && . env/bin/activate && sudo bench setup production $ORIGINAL_USER && sudo bench setup production $ORIGINAL_USER ;;
     esac
 done
