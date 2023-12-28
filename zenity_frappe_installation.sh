@@ -63,8 +63,8 @@ for package in $selected_packages; do
             ;;
         "NVM_Node.js") zenity --info --title="Installing NVM and Node.js" --text="Installing NVM and Node.js..." && sudo apt install curl -y && curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash && source ~/.profile && nvm install 16.15.0 ;;
         "NPM_Yarn") zenity --info --title="Installing npm and yarn" --text="Installing npm and yarn..." && sudo apt-get install npm -y && sudo npm install -g yarn ;;
-        "Frappe_Bench") zenity --info --title="Installing Frappe Bench" --text="Installing Frappe Bench..." && sudo pip3 install frappe-bench && cd "$bench_path" && bench init --frappe-branch version-14 --python python3.10 "$bench_folder" ;;
-        "Frappe_Production") zenity --info --title="Setting up Frappe Production Mode" --text="Setting up Frappe Production Mode..." && cd "$bench_path/$bench_folder" && . env/bin/activate && sudo bench setup production $ORIGINAL_USER && sudo bench setup production $ORIGINAL_USER ;;
+        "Frappe_Bench") zenity --info --title="Installing Frappe Bench" --text="Installing Frappe Bench..." && sudo pip3 install frappe-bench && cd "$bench_path" && bench init --frappe-branch version-14 --python python3.10 "$bench_folder" && sudo chmod -R o+rx /home/"$ORIGINAL_USER" ;;
+        "Frappe_Production") zenity --info --title="Setting up Frappe Production Mode" --text="Setting up Frappe Production Mode..." && cd "$bench_path/$bench_folder" && . env/bin/activate && sudo bench setup production "$ORIGINAL_USER" && sudo bench setup production "$ORIGINAL_USER" ;;
     esac
 done
 
