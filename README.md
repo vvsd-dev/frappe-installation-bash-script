@@ -10,7 +10,7 @@ The `whiptail_frappe_installation.sh` script offers an interactive command-line 
 ### Instructions
 1. Clone the repository:
    ```bash
-   git clone https://github.com/vvsd-dev/frappe_installation_bash-script-whiptail-zenity.git
+   git clone https://github.com/vvsd-dev/frappe-installation-bash-script.git
 
 2. Navigate to the repository directory:
    ```bash
@@ -30,7 +30,7 @@ The zenity_frappe_installation.sh script provides a graphical user interface (GU
 Instructions
 1. Clone the repository:
    ```bash
-   git clone https://github.com/vvsd-dev/frappe_installation_bash-script-whiptail-zenity.git
+   git clone https://github.com/vvsd-dev/frappe-installation-bash-script.git
 
 2. Navigate to the repository directory:
    ```bash
