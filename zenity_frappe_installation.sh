@@ -41,7 +41,7 @@ collation-server = utf8mb4_unicode_ci
 default-character-set = utf8mb4"
 
 # Display a checklist for package selection
-selected_packages=$(zenity --list --title="Select packages to install" --text="Choose packages to install:" --checklist --column="" --column="Package" --column="Description" \
+selected_packages=$(zenity --list --title="Select packages to install" --text="Choose packages to install:" --checklist --column="" --column="Package" --column="Description" --width=600 --height=400 \
     FALSE "Git" "Install Git" \
     FALSE "Python" "Install Python and related packages" \
     FALSE "MariaDB" "Install MariaDB" \
