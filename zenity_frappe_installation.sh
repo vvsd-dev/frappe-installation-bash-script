@@ -55,8 +55,11 @@ selected_packages=$(zenity --list --title="Select packages to install" --text="C
     FALSE "Frappe_Bench" "Install Frappe Bench" \
     FALSE "Frappe_Production" "Setup Frappe Production Mode")
 
+# Convert the selected packages string to an array
+IFS="|" read -ra selected_packages_array <<< "$selected_packages"
+
 # Process the selected packages in the order they are selected
-for package in $selected_packages; do
+for package in "${selected_packages_array[@]}"; do
     case "$package" in
         "Git") echo "Installing Git..." && sudo apt-get install git -y ;;
         "Python") echo "Installing Python and related packages..." && sudo apt-get install python3-dev python3.10-dev python3-setuptools python3-pip python3-distutils -y && sudo apt-get install python3.10-venv -y ;;
@@ -72,6 +75,5 @@ for package in $selected_packages; do
         "Frappe_Production") echo "Setting up Frappe Production Mode..." && cd "$bench_path/$bench_folder" && . env/bin/activate && sudo bench setup production $ORIGINAL_USER && sudo bench setup production $ORIGINAL_USER ;;
     esac
 done
-
 
 zenity --info --title="Completion" --text="Installation process completed."
