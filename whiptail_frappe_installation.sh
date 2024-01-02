@@ -83,8 +83,8 @@ collation-server = utf8mb4_unicode_ci
 [mysql]
 default-character-set = utf8mb4"
 
-# Packages to install
-packages_to_install=("Git" "Python" "MariaDB" "Libmysqlclient_Dev" "XVFB_Libfontconfig_Wkhtmltopdf" "MySQL" "NVM_Node.js" "NPM_Yarn" "Redis_Server" "Software_Properties_Common" "Frappe_Bench" "Frappe_Production")
+# Packages to install with descriptions
+packages_to_install=("Git" "Install Git" "Python" "Install Python and related packages" "MariaDB" "Install MariaDB" "Libmysqlclient_Dev" "Install libmysqlclient-dev" "XVFB_Libfontconfig_Wkhtmltopdf" "Install xvfb libfontconfig wkhtmltopdf" "MySQL" "Secure MySQL installation" "NVM_Node.js" "Install NVM and Node.js" "NPM_Yarn" "Install npm and yarn" "Redis_Server" "Install redis-server" "Software_Properties_Common" "Install software-properties-common" "Frappe_Bench" "Install Frappe Bench" "Frappe_Production" "Setup Frappe Production Mode")
 
 # Display a checklist for package selection
 selected_packages=$(show_checklist "Select packages to install" "${packages_to_install[@]}")
