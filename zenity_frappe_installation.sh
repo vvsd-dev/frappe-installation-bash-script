@@ -45,15 +45,23 @@ selected_packages=$(zenity --list --title="Select packages to install" --text="C
     FALSE "Git" "Install Git" \
     FALSE "Python" "Install Python and related packages" \
     FALSE "MariaDB" "Install MariaDB" \
+    FALSE "Libmysqlclient_Dev" "Install libmysqlclient-dev" \
+    FALSE "XVFB_Libfontconfig_Wkhtmltopdf" "Install xvfb libfontconfig wkhtmltopdf" \
     FALSE "MySQL" "Secure MySQL installation" \
     FALSE "NVM_Node.js" "Install NVM and Node.js" \
     FALSE "NPM_Yarn" "Install npm and yarn" \
+    FALSE "Redis_Server" "Install redis-server" \
+    FALSE "Software_Properties_Common" "Install software-properties-common" \
     FALSE "Frappe_Bench" "Install Frappe Bench" \
     FALSE "Frappe_Production" "Setup Frappe Production Mode")
 
 # Process the selected packages
 for package in $selected_packages; do
     case "$package" in
+        "Software_Properties_Common") zenity --info --title="Installing software-properties-common" --text="Installing software-properties-common..." && sudo apt-get install software-properties-common -y ;;
+        "XVFB_Libfontconfig_Wkhtmltopdf") zenity --info --title="Installing xvfb libfontconfig wkhtmltopdf" --text="Installing xvfb libfontconfig wkhtmltopdf..." && sudo apt-get install xvfb libfontconfig wkhtmltopdf -y ;;
+        "Libmysqlclient_Dev") zenity --info --title="Installing libmysqlclient-dev" --text="Installing libmysqlclient-dev..." && sudo apt-get install libmysqlclient-dev -y ;;
+        "Redis_Server") zenity --info --title="Installing redis-server" --text="Installing redis-server..." && sudo apt-get install redis-server -y ;;
         "Git") zenity --info --title="Installing Git" --text="Installing Git..." && sudo apt-get install git -y ;;
         "Python") zenity --info --title="Installing Python" --text="Installing Python and related packages..." && sudo apt-get install python3-dev python3.10-dev python3-setuptools python3-pip python3-distutils -y && sudo apt-get install python3.10-venv -y ;;
         "MariaDB") zenity --info --title="Installing MariaDB" --text="Installing MariaDB..." && sudo apt install mariadb-server mariadb-client -y ;;
@@ -63,9 +71,10 @@ for package in $selected_packages; do
             ;;
         "NVM_Node.js") zenity --info --title="Installing NVM and Node.js" --text="Installing NVM and Node.js..." && sudo apt install curl -y && curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash && source ~/.profile && nvm install 16.15.0 ;;
         "NPM_Yarn") zenity --info --title="Installing npm and yarn" --text="Installing npm and yarn..." && sudo apt-get install npm -y && sudo npm install -g yarn ;;
-        "Frappe_Bench") zenity --info --title="Installing Frappe Bench" --text="Installing Frappe Bench..." && sudo pip3 install frappe-bench && cd "$bench_path" && bench init --frappe-branch version-14 --python python3.10 "$bench_folder" && sudo chmod -R o+rx /home/"$ORIGINAL_USER" ;;
-        "Frappe_Production") zenity --info --title="Setting up Frappe Production Mode" --text="Setting up Frappe Production Mode..." && cd "$bench_path/$bench_folder" && . env/bin/activate && sudo bench setup production "$ORIGINAL_USER" && sudo bench setup production "$ORIGINAL_USER" ;;
+        "Frappe_Bench") zenity --info --title="Installing Frappe Bench" --text="Installing Frappe Bench..." && sudo pip3 install frappe-bench && cd "$bench_path" && bench init --frappe-branch version-14 --python python3.10 "$bench_folder" ;;
+        "Frappe_Production") zenity --info --title="Setting up Frappe Production Mode" --text="Setting up Frappe Production Mode..." && cd "$bench_path/$bench_folder" && . env/bin/activate && sudo bench setup production $ORIGINAL_USER && sudo bench setup production $ORIGINAL_USER ;;
     esac
 done
+
 
 zenity --info --title="Completion" --text="Installation process completed."
