@@ -84,7 +84,7 @@ collation-server = utf8mb4_unicode_ci
 default-character-set = utf8mb4"
 
 # Packages to install
-packages_to_install=("Git" "Install Git" "Python" "Install Python and related packages" "MariaDB" "Install MariaDB" "MySQL" "Secure MySQL installation" "NVM_Node.js" "Install NVM and Node.js" "NPM_Yarn" "Install npm and yarn" "Frappe_Bench" "Install Frappe Bench" "Frappe_Production" "Setup Frappe Production Mode")
+packages_to_install=("Git" "Python" "MariaDB" "Libmysqlclient_Dev" "XVFB_Libfontconfig_Wkhtmltopdf" "MySQL" "NVM_Node.js" "NPM_Yarn" "Redis_Server" "Software_Properties_Common" "Frappe_Bench" "Frappe_Production")
 
 # Display a checklist for package selection
 selected_packages=$(show_checklist "Select packages to install" "${packages_to_install[@]}")
@@ -95,12 +95,17 @@ for package in $selected_packages; do
         "Git") echo "Installing Git..." && sudo apt-get install git -y ;;
         "Python") echo "Installing Python and related packages..." && sudo apt-get install python3-dev python3.10-dev python3-setuptools python3-pip python3-distutils -y && sudo apt-get install python3.10-venv -y ;;
         "MariaDB") echo "Installing MariaDB..." && sudo apt install mariadb-server mariadb-client -y ;;
+        "Libmysqlclient_Dev") echo "Installing libmysqlclient-dev..." && sudo apt-get install libmysqlclient-dev -y ;;
+        "XVFB_Libfontconfig_Wkhtmltopdf") echo "Installing xvfb libfontconfig wkhtmltopdf..." && sudo apt-get install xvfb libfontconfig wkhtmltopdf -y ;;
         "MySQL") echo "Securing MySQL installation..." && sudo mysql_secure_installation && echo "$MYSQL_CONFIG" | sudo tee -a /etc/mysql/my.cnf > /dev/null && sudo service mysql restart ;;
         "NVM_Node.js") echo "Installing NVM and Node.js..." && sudo apt install curl -y && curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash && source ~/.profile && nvm install 16.15.0 ;;
         "NPM_Yarn") echo "Installing npm and yarn..." && sudo apt-get install npm -y && sudo npm install -g yarn ;;
-        "Frappe_Bench") echo "Installing Frappe Bench..." && sudo pip3 install frappe-bench && cd "$BENCH_PATH" && bench init --frappe-branch version-14 --python python3.10 "$BENCH_FOLDER" && sudo chmod -R o+rx /home/$ORIGINAL_USER ;;
+        "Redis_Server") echo "Installing redis-server..." && sudo apt-get install redis-server -y ;;
+        "Software_Properties_Common") echo "Installing software-properties-common..." && sudo apt-get install software-properties-common -y ;;
+        "Frappe_Bench") echo "Installing Frappe Bench..." && sudo pip3 install frappe-bench && cd "$BENCH_PATH" && bench init --frappe-branch version-14 --python python3.10 "$BENCH_FOLDER" ;;
         "Frappe_Production") echo "Setting up Frappe Production Mode..." && cd "$BENCH_PATH/$BENCH_FOLDER" && . env/bin/activate && sudo bench setup production $ORIGINAL_USER && sudo bench setup production $ORIGINAL_USER ;;
     esac
 done
+
 
 whiptail --msgbox "Installation process completed." 10 40
