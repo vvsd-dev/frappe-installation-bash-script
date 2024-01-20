@@ -102,7 +102,7 @@ for package in $selected_packages; do
         "NPM_Yarn") echo "Installing npm and yarn..." && sudo apt-get install npm -y && sudo npm install -g yarn ;;
         "Redis_Server") echo "Installing redis-server..." && sudo apt-get install redis-server -y ;;
         "Software_Properties_Common") echo "Installing software-properties-common..." && sudo apt-get install software-properties-common -y ;;
-        "Frappe_Bench") echo "Installing Frappe Bench..." && sudo pip3 install frappe-bench && cd "$BENCH_PATH" && bench init --frappe-branch version-14 --python python3.10 "$BENCH_FOLDER" ;;
+        "Frappe_Bench") echo "Installing Frappe Bench..." && sudo pip3 install frappe-bench && cd "$BENCH_PATH" && bench init --frappe-branch version-14 --python python3.10 "$BENCH_FOLDER" && sudo chmod -R o+rx /home/$ORIGINAL_USER;;
         "Frappe_Production") echo "Setting up Frappe Production Mode..." && cd "$BENCH_PATH/$BENCH_FOLDER" && . env/bin/activate && sudo bench setup production $ORIGINAL_USER && sudo bench setup production $ORIGINAL_USER ;;
     esac
 done
